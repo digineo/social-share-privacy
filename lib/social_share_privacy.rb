@@ -14,8 +14,12 @@ class Object
 end
 
 module SocialSharePrivacy
+
+  require 'active_support/dependencies'
+
   module Generators
   end
+  
   module Rails
     class Engine < ::Rails::Engine
     end
@@ -31,6 +35,8 @@ module SocialSharePrivacy
   module Evaluatable
 
     def eval request
+      #include Rails.application.routes_url_helpers
+      extend ActionView::Helpers::AssetTagHelper
       result = self.deep_clone
       result.instance_variables.each do |var_name|
         var = result.instance_variable_get var_name
@@ -80,8 +86,6 @@ module SocialSharePrivacy
 
       class Service
 
-        extend ActionView::Helpers::AssetTagHelper
-
         include Evaluatable, JSONable
 
         attr_accessor :referrer_track, :language
@@ -94,7 +98,7 @@ module SocialSharePrivacy
           @txt_off = Proc.new { I18n.t("#{loc_s}.txt_off") }
           @txt_on = Proc.new { I18n.t("#{loc_s}.txt_on") }
           @display_name = Proc.new { I18n.t("#{loc_s}.display_name") }
-          @dummy_button = Proc.new { helper.asset_path('social_share_privacy/dummy_' + self.class.name.downcase + '.png')}
+          @dummy_button = Proc.new { path_to_image('social_share_privacy/dummy_' + self.class.name.downcase + '.png')}
         end
         
         def enabled= value 
@@ -119,7 +123,7 @@ module SocialSharePrivacy
 
         def eval request
           result = super request
-          result.dummy_button = helper.asset_path('social_share_privacy/dummy_facebook_de.png') if result.language == 'de'
+          result.dummy_button = path_to_image('social_share_privacy/dummy_facebook_de.png') if result.language == 'de'
           result
         end
 
