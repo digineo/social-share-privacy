@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require social_share_privacy
 //= require_tree .

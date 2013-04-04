@@ -9,5 +9,14 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require social_share_privacy
  *= require_tree .
  */
+.social_wrapper { 
+  width: 690px;
+  margin: 100px auto;
+}
+.social_wrapper * {
+  position: relative;
+  margin-left: 10%;
+}

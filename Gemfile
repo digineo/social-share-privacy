@@ -17,3 +17,5 @@ gem "jquery-rails"
 # gem 'debugger'
 gem "pry"
 gem "pry-nav"
+gem "i18n_data"
+gem "sass-rails"

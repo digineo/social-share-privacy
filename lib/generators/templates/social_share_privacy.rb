@@ -2,11 +2,11 @@ SocialSharePrivacy.configure do |config|
 
   config.info_link = 'http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html'
 
-  config.uri = Proc.new {|request| request.url}
+  config.uri = Proc.new {|helper| helper.request.url}
 
   config.cookie do |cookie|
     cookie.path = '/'
-    cookie.domain = Proc.new {|request| request.host}
+    cookie.domain = Proc.new {|helper| helper.request.host}
     cookie.expires = 365
   end
 
