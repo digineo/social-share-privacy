@@ -17,7 +17,6 @@ SocialSharePrivacy.configure do |config|
       facebook.perma_option = true
       facebook.referrer_track = ''
       facebook.language = Proc.new { I18n.locale }
-      facebook.action = :recommend
     end
 
     services.twitter do |twitter|

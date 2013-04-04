@@ -149,14 +149,14 @@ module SocialSharePrivacy
         @@RE_LOCALE = Regexp.new(/^[a-z]{2}_[A-Z]{2}$/)
         attr_reader :action
 
-        def action= value
-          @action = value
-          @dummy_button = Proc.new {|helper| helper.path_to_image('social_share_privacy/dummy_facebook_' + value.to_s + '.png')}
+        def initialize
+          super
+          @action = :like
         end
 
         def eval helper
           result = super helper
-          result.dummy_button = helper.path_to_image('social_share_privacy/dummy_facebook_' + result.action.to_s + '_de.png') if result.language.to_s.start_with?('de')
+          result.dummy_button = helper.path_to_image('social_share_privacy/dummy_facebook_like_de.png') if result.language.to_s.start_with?('de')
           unless @@RE_LOCALE.match(result.language)
             if I18n.available_locales.include? result.language.to_sym
               cur_loc = I18n.locale
