@@ -55,11 +55,13 @@ module SocialSharePrivacy
       json_string = '{'
       vars = self.instance_variables.map do |var_name|
         var = self.instance_variable_get var_name
-        var_s = var.to_s.strip
-        unless var.is_a? JSONable
-          var_s = '"' + var_s.gsub(/(["\\])/){ "\\" + $1 } + '"'
+        unless var.nil?
+          var_s = var.to_s.strip
+          unless var.is_a? JSONable
+            var_s = '"' + var_s.gsub(/(["\\])/){ "\\" + $1 } + '"'
+          end
+          "\"#{var_name.to_s.sub(/^@+/,'').downcase}\":#{var_s}"
         end
-        "\"#{var_name.to_s.sub(/^@+/,'').downcase}\":#{var_s}"
       end
       json_string += vars.join(',')
       json_string + '}'
@@ -172,6 +174,7 @@ module SocialSharePrivacy
       end
 
       class Twitter < Service
+        attr_accessor :tweet_text
       end
 
       class Gplus < Service
