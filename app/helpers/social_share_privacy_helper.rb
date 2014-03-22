@@ -1,11 +1,7 @@
 module SocialSharePrivacyHelper
 
   def social_buttons
-    options = social_share_privacy_config.to_s
-    result = []
-    result << '<div class="social_buttons"></div>'
-    result << javascript_tag("jQuery(document).ready(function($) { $('.social_buttons').socialSharePrivacy(#{options}) });")
-    raw(result.join("\n"))
+    content_tag :div, '', class: 'social-buttons'
   end
   
   def social_share_privacy_config
